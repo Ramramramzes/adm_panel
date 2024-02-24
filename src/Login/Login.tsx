@@ -98,7 +98,6 @@ export function Login1() {
       <input onChange={changeLogin} type="text" defaultValue={login}/>
       <input onChange={changePass} type="text" defaultValue={pass}/>
       <button onClick={sendHandle}>Отправить</button>
-      <button onClick={setToken}>setToken</button>
     </div>
   );
 }
