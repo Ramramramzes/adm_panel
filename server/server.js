@@ -1,18 +1,11 @@
 import express  from 'express';
 import { createConnection } from 'mysql';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 
-const app = express();
-app.use(express.json());
-
-
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); // Разрешить доступ с любого источника
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Разрешить различные методы запросов
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Разрешить различные заголовки
-  next();
-});
-
-
+var app = express()
+const host = 'localhost';
+const port = 3001;
 const connection = createConnection({
   host: 'localhost',
   user: 'root',
@@ -21,6 +14,17 @@ const connection = createConnection({
 });
 
 connection.connect();
+app.use(cookieParser('secret key'));
+app.use(bodyParser.json());
+app.use((req, res, next) => {
+  const allowedOrigin = req.headers.origin || "http://localhost:5173"; // Используйте Origin из запроса, если он есть
+  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
 
 app.get('/admins', (req, res) => {
   const sql = 'SELECT * FROM admin';
@@ -29,13 +33,40 @@ app.get('/admins', (req, res) => {
     if (error) {
       res.status(500).json({ error: 'Ошибка при выполнении запроса к базе данных' });
     } else {
-      res.json(results); // Отправляем данные в формате JSON
+      res.send(results);
     }
   });
 });
 
+app.post('/set_adm_token', (req, res) => {
+  console.log(req.body);
 
+  const sql = `UPDATE admin SET token='${req.body.token}' WHERE name='${req.body.login}'`;
 
-app.listen(3001, () => {
-  console.log(`Сервер запущен на порту ${3001}`);
+  connection.query(sql, (error, results) => {
+    if (error) {
+      console.error('Ошибка при выполнении запроса к базе данных:', error);
+      res.status(500).json({ error: 'Ошибка при выполнении запроса к базе данных' });
+    } else {
+      console.log(results);
+      res.status(200).json({ success: true });
+    }
+  });
 });
+
+app.get('/get-cookie', (req, res) => {
+  const final = req.cookies;
+  res.send(final);
+});
+
+app.get('/set-cookie', (req, res) => {
+  const token = req.query.token;
+  res.cookie('token', `${token}`,{httpOnly: true});
+  res.send('Set Cookie new');
+});
+
+app.listen(port, host, () =>
+    console.log(`Server listens http://${host}:${port}`)
+);
+
+
