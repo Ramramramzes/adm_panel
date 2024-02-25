@@ -1,6 +1,6 @@
 import './App.css'
 import { Login } from './Login';
-import { Main } from './MainPanel';
+import { Main } from './Mainpanel';
 import { FindAdmProvider } from './context/findAdmContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
