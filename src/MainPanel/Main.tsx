@@ -3,13 +3,13 @@ import { useLocation } from 'react-router-dom';
 
 export function Main() {
   const location = useLocation();
-  const currentAdmin = location.state && location.state.currentAdmin;
+  const {name: adminName , token: adminToken}:{name:string,token:string} = location.state && location.state.currentAdmin;
   useEffect(()=>{
-    console.log(currentAdmin);
+    console.log(adminName,adminToken);
   },[])
   
 
   return (
-    <div>Добро пожаловать {currentAdmin && currentAdmin.name}</div>
+    <div>Добро пожаловать {adminName && adminName}</div>
   );
 }

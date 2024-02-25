@@ -33,7 +33,7 @@ export function Login() {
         setTokenRes(res)
         const foundAdmin = adminsArr.find((admin: IAdmins) => admin.token === res);
         if(foundAdmin){
-          navigate('/main',{ state : {currentAdmin: foundAdmin}});
+          navigate('/main',{ state : {name: foundAdmin.name, token: foundAdmin.token}});
         }
       }
     })
@@ -81,7 +81,7 @@ export function Login() {
           setToken()
           setInBase(el.name, decoded)
           
-          navigate('/main',{state : {currentAdmin: el}})
+          navigate('/main',{state : {name: el.name, token: el.token}})
         }
       }
     })
