@@ -2,8 +2,8 @@ import axios from "axios";
 import styles from './login.module.css';
 import { tokenGenerate } from "../key_generator";
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from "react";
-import { useAdm } from "../hooks/useAdm";
+import { useContext, useEffect, useState } from "react";
+import { findAdmContext } from "../context/findAdmContext";
 
 const token = tokenGenerate(30); 
 
@@ -13,14 +13,13 @@ interface IAdmins{
   token: string;
 }
 
-export function Login1() {
+export function Login() {
   const navigate = useNavigate()
   const [login,setLogin] = useState('')
   const [pass,setPass] = useState('')
   const [tokenRes,setTokenRes] = useState('')
-  const [findAdm,setFindAdm] = useState<IAdmins>()
 
-  const adminsArr:IAdmins[] = useAdm();
+  const adminsArr = useContext(findAdmContext);
   const decoded = btoa(token)
   
   useEffect(()=>{
@@ -28,21 +27,19 @@ export function Login1() {
       withCredentials: true // Включаем отправку куков
     })
     .then(response => {
+      
       if(response.data.token != ''){
-        const res = atob(response.data.token);
+        const res = response.data.token;
         setTokenRes(res)
+        const foundAdmin = adminsArr.find((admin: IAdmins) => admin.token === res);
+        if(foundAdmin){
+          navigate('/main',{ state : {currentAdmin: foundAdmin}});
+        }
       }
     })
     .catch(error => {
       console.error('Нет токена:', error);
-    });
-
-
-    adminsArr.map((el) => {
-      if(tokenRes == atob(el.token)){
-        navigate('/main')
-      }
-    })
+    });    
 
   },[tokenRes])
   
@@ -82,17 +79,13 @@ export function Login1() {
       if(el.name == login && el.pass == pass){
         if(el.token == "" || el.token != tokenRes){
           setToken()
-          setFindAdm(el)
-          console.log(el.name);
           setInBase(el.name, decoded)
-          navigate('/main')
+          
+          navigate('/main',{state : {currentAdmin: el}})
         }
       }
     })
   }
-  
-  //? findAdm используя для прокидки пропсов
-  console.log(findAdm);
   
   return (
     <div className={styles.container}>
