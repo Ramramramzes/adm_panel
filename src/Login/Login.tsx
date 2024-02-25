@@ -1,4 +1,5 @@
 import axios from "axios";
+import styles from './login.module.css';
 import { tokenGenerate } from "../key_generator";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
@@ -94,10 +95,12 @@ export function Login1() {
   console.log(findAdm);
   
   return (
-    <div>
-      <input onChange={changeLogin} type="text" defaultValue={login}/>
-      <input onChange={changePass} type="text" defaultValue={pass}/>
-      <button onClick={sendHandle}>Отправить</button>
+    <div className={styles.container}>
+      <span>Логин</span>
+      <input onChange={changeLogin} type="text" defaultValue={login} className={styles.input}/>
+      <span>Пароль</span>
+      <input onChange={changePass} type="text" defaultValue={pass} className={styles.input}/>
+      <button onClick={sendHandle} className={styles.btn}>Войти</button>
     </div>
   );
 }
