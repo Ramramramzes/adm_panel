@@ -1,11 +1,11 @@
 import axios from "axios";
 import styles from './login.module.css';
-import { tokenGenerate } from "../key_generator";
+import { tokenGenerate } from "../functions/key_generator";
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from "react";
 import { findAdmContext } from "../context/findAdmContext";
 import useGetCookie from "../hooks/useGetCookie";
-
+import { setTokenInCookie } from "../functions/setTokenInCookie";
 
 const token = tokenGenerate(30); 
 
@@ -38,17 +38,6 @@ export function Login() {
     
   },[myCookie])
   
-  const setToken = () => {
-    axios.get(`http://localhost:3001/set-cookie?token=${decoded}`, {
-      withCredentials: true // Включаем отправку куков
-    })
-    .then(response => {
-      console.log(response.data.token);
-    })
-    .catch(error => {
-      console.error('Ошибка при получении данных:', error);
-    });
-  };
 
   const setInBase = (name:string, token:string) => {
     axios.post(`http://localhost:3001/set_adm_token`, { login: name, token: token })
@@ -73,9 +62,8 @@ export function Login() {
     adminsArr.map((el:IAdmins) => {
       if(el.name == login && el.pass == pass){
         if(el.token == "" || el.token != tokenRes){
-          setToken()
           setInBase(el.name, decoded)
-          
+          setTokenInCookie(decoded);
           navigate('/main',{state : {name: el.name, token: el.token}})
         }
       }

@@ -9,16 +9,24 @@ export function Main() {
   const location = useLocation();
   const navigate = useNavigate()
   const baseAdm = useContext(findAdmContext)
-  const {name: admName, token: admToken} = location.state;
 
-  useEffect(()=>{
-    baseAdm.find(el => el.token == admToken)?.name != admName ? navigate('/') : false;
-  },[])
   
+
+  useEffect(() => {
+    if (!location.state) {
+      navigate('/');
+    } else {
+      const isValidAdmin = baseAdm.find(el => el.token === location.state.token && el.name === location.state.name)
+      if(!isValidAdmin){
+        navigate('/');
+      }
+    }
+  }, [navigate, baseAdm, location.state]);
+
 
   return (
     <div>
-      <div className={styles.mainColor}>Добро пожаловать {admName && admName}</div>
+      <div className={styles.mainColor}>Добро пожаловать {location.state && location.state.name}</div>
       <CustomProgressbar />
     </div>
   );
