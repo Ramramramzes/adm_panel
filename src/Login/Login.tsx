@@ -1,4 +1,3 @@
-import axios from "axios";
 import styles from './login.module.css';
 import { tokenGenerate } from "../functions/key_generator";
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { findAdmContext } from "../context/findAdmContext";
 import useGetCookie from "../hooks/useGetCookie";
 import { setTokenInCookie } from "../functions/setTokenInCookie";
+import setTokenInBase  from "../functions/setTokenInBase";
 
 const token = tokenGenerate(30); 
 
@@ -39,17 +39,6 @@ export function Login() {
   },[myCookie])
   
 
-  const setInBase = (name:string, token:string) => {
-    axios.post(`http://localhost:3001/set_adm_token`, { login: name, token: token })
-    .then(response => {
-      console.log('Данные успешно отправлены:', response);
-    })
-    .catch(error => {
-      console.error('Ошибка при отправке данных:', error);
-    });
-  }
-
-
   const changeLogin = (event:React.ChangeEvent<HTMLInputElement>) => {
     setLogin(event.target.value.toString())
   }
@@ -62,7 +51,7 @@ export function Login() {
     adminsArr.map((el:IAdmins) => {
       if(el.name == login && el.pass == pass){
         if(el.token == "" || el.token != tokenRes){
-          setInBase(el.name, decoded)
+          setTokenInBase(el.name, decoded)
           setTokenInCookie(decoded);
           navigate('/main',{state : {name: el.name, token: el.token}})
         }
