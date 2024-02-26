@@ -18,6 +18,7 @@ export function Login() {
   const [login,setLogin] = useState('')
   const [pass,setPass] = useState('')
   const [tokenRes,setTokenRes] = useState('')
+  const [loginCheck, setLoginCheck] = useState(false)
 
   const adminsArr = useContext(findAdmContext);
   const decoded = btoa(token)
@@ -40,8 +41,8 @@ export function Login() {
     .catch(error => {
       console.error('Нет токена:', error);
     });    
-
-  },[tokenRes])
+    setLoginCheck(!loginCheck)
+  },[loginCheck])
   
   const setToken = () => {
     axios.get(`http://localhost:3001/set-cookie?token=${decoded}`, {
