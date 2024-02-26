@@ -4,6 +4,8 @@ import { tokenGenerate } from "../key_generator";
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from "react";
 import { findAdmContext } from "../context/findAdmContext";
+import useGetCookie from "../hooks/useGetCookie";
+
 
 const token = tokenGenerate(30); 
 
@@ -18,31 +20,23 @@ export function Login() {
   const [login,setLogin] = useState('')
   const [pass,setPass] = useState('')
   const [tokenRes,setTokenRes] = useState('')
-  const [loginCheck, setLoginCheck] = useState(false)
 
   const adminsArr = useContext(findAdmContext);
   const decoded = btoa(token)
   
+  const myCookie = useGetCookie()
+  
   useEffect(()=>{
-    axios.get('http://localhost:3001/get-cookie', {
-      withCredentials: true // Включаем отправку куков
-    })
-    .then(response => {
+    if(myCookie){
+      setTokenRes(myCookie)
+      const foundAdmin = adminsArr.find((admin: IAdmins) => admin.token === myCookie);
       
-      if(response.data.token != ''){
-        const res = response.data.token;
-        setTokenRes(res)
-        const foundAdmin = adminsArr.find((admin: IAdmins) => admin.token === res);
-        if(foundAdmin){
-          navigate('/main',{ state : {name: foundAdmin.name, token: foundAdmin.token}});
-        }
+      if(foundAdmin){
+        navigate('/main',{ state : {name: foundAdmin.name, token: foundAdmin.token}});
       }
-    })
-    .catch(error => {
-      console.error('Нет токена:', error);
-    });    
-    setLoginCheck(!loginCheck)
-  },[loginCheck])
+    }
+    
+  },[myCookie])
   
   const setToken = () => {
     axios.get(`http://localhost:3001/set-cookie?token=${decoded}`, {
