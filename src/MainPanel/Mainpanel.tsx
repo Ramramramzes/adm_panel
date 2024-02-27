@@ -1,6 +1,6 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { findAdmContext } from '../context/findAdmContext';
-import CustomProgressbar from './Progressbar/Progressbar_custom';
+import CustomProgressbar from './ProgressbarList/Progressbar_custom';
 import { useLocation,useNavigate } from 'react-router-dom';
 import styles from './mainpanel.module.css'
 
@@ -9,8 +9,6 @@ export function Main() {
   const location = useLocation();
   const navigate = useNavigate()
   const baseAdm = useContext(findAdmContext)
-
-  
 
   useEffect(() => {
     if (!location.state) {

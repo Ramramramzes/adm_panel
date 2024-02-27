@@ -1,4 +1,5 @@
 import './App.css'
+import { Edit } from './Edit';
 import { Login } from './Login';
 import { Main } from './Mainpanel';
 import { FindAdmProvider } from './context/findAdmContext';
@@ -15,6 +16,7 @@ function App() {
           {/* подстановочный путь */}
           <Route path="*" element={<Login />} />
           <Route path="/main" element={<Main />}/>
+          <Route path="/workers_edit" element={<Edit />}/>
         </Routes>
       </FindAdmProvider>
     </BrowserRouter>

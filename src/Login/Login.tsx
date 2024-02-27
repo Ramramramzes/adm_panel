@@ -53,7 +53,9 @@ export function Login() {
         if(el.token == "" || el.token != tokenRes){
           setTokenInBase(el.name, decoded)
           setTokenInCookie(decoded);
-          navigate('/main',{state : {name: el.name, token: el.token}})
+          setTimeout(() => {
+            location.reload()
+          }, 500);
         }
       }
     })
