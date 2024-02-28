@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from "react";
 import { findAdmContext } from "../context/findAdmContext";
 import useGetCookie from "../hooks/useGetCookie";
-import { setTokenInCookie } from "../functions/setTokenInCookie";
+import setTokenInCookie from '../functions/setTokenInCookie';
 import setTokenInBase  from "../functions/setTokenInBase";
 
 const token = tokenGenerate(30); 
@@ -52,14 +52,17 @@ export function Login() {
       if(el.name == login && el.pass == pass){
         if(el.token == "" || el.token != tokenRes){
           setTokenInBase(el.name, decoded)
-          setTokenInCookie(decoded);
-          setTimeout(() => {
+          setTokenInCookie(decoded).then(() => {
             location.reload()
-          }, 500);
+          })
+          .catch((error) => {
+            console.log('Ошибка установки куки', error);
+          })
         }
       }
     })
   }
+
   
   return (
     <div className={styles.container}>
