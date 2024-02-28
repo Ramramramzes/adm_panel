@@ -1,39 +1,15 @@
-// import ProgressBar from 'react-bootstrap/ProgressBar';
-import { useWorkers } from '../../../hooks/useWorker';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-interface IWorker {
-  name: string;
-  points: number;
-  comments: string;
-}
-// const colors: string[] = ['success', 'danger', 'warning', 'info'];
+import { ProgressBar } from 'react-bootstrap';
 
 
+const colors: string[] = ['success', 'danger', 'warning', 'info'];
 
 
-
-
-export default function CustomProgressbar() {
-  // const [report,setReport] = useState({})
-  const workers:IWorker[] = useWorkers();
-  const navigate = useNavigate()
-
-  useEffect (() =>{
-    if(workers.length != 0){
-      console.log(JSON.parse(workers[0].comments));
-    }
-  },[workers])
-  
-  
-  const handleCkickRed = () => {
-    navigate('/workers_edit');
-  }
+export default function CustomProgressbar({name,points}:{name: string, points: number}) {
   
   return (
     <div>
-      <button onClick={handleCkickRed}>Редактировать сотрудников</button>
+      <h3>{name}</h3>
+      <ProgressBar variant={colors[(Math.floor(Math.random() * 3))]} animated now={points} />
     </div>
     
   )

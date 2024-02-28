@@ -65,7 +65,7 @@ app.post('/set_adm_token', (req, res) => {
 });
 
 app.post('/setWorker', (req,res) => {
-  const sql = `INSERT INTO \`worker\` (\`name\`, \`points\`, \`comments\`) VALUES ('${req.body.name}', 0, '{}')`
+  const sql = `INSERT INTO \`worker\` (\`name\`, \`points\`, \`comments\`) VALUES ('${req.body.name}', 0, '${JSON.stringify({})}')`
 
   connection.query(sql, (error, results) => {
     if (error) {
