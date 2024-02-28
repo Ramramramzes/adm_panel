@@ -1,19 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import Accordion from 'react-bootstrap/Accordion';
-import { useState } from "react";
-import delWorker from "../hooks/delWorker";
-import setWorker from "../hooks/setWorker";
-
-
-
-
-
+import { useState, useEffect } from "react";
+import delWorker from "../../functions/delWorker";
+import setWorker from "../../functions/setWorker";
+import { useContext } from "react";
+import { findAdmContext } from "../../context/findAdmContext";
+import useGetCookie from "../../hooks/useGetCookie";
 
 export function Edit() {
   const navigate = useNavigate()
-
   const [delInpt,setDelInpt] = useState('')
   const [setInpt,setSetInpt] = useState('')
+  const baseAdm = useContext(findAdmContext)
+  const myCookie = useGetCookie()
+
+  useEffect(() => {
+      const isValidAdmin = baseAdm.find(el => el.token === myCookie)
+      if(!isValidAdmin){
+        navigate('/');
+      }
+  }, []);
 
   const handleSetChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     setSetInpt('')

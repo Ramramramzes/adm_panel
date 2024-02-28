@@ -1,11 +1,11 @@
 import styles from './login.module.css';
-import { tokenGenerate } from "../functions/key_generator";
+import { tokenGenerate } from "../../functions/key_generator";
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from "react";
-import { findAdmContext } from "../context/findAdmContext";
-import useGetCookie from "../hooks/useGetCookie";
-import setTokenInCookie from '../functions/setTokenInCookie';
-import setTokenInBase  from "../functions/setTokenInBase";
+import { findAdmContext } from "../../context/findAdmContext";
+import useGetCookie from "../../hooks/useGetCookie";
+import setTokenInCookie from '../../functions/setTokenInCookie';
+import setTokenInBase  from "../../functions/setTokenInBase";
 
 const token = tokenGenerate(30); 
 
@@ -48,16 +48,12 @@ export function Login() {
   }
 
   const sendHandle = () => {
-    adminsArr.map((el:IAdmins) => {
+    adminsArr.map(async (el:IAdmins) => {
       if(el.name == login && el.pass == pass){
         if(el.token == "" || el.token != tokenRes){
-          setTokenInBase(el.name, decoded)
-          setTokenInCookie(decoded).then(() => {
-            location.reload()
-          })
-          .catch((error) => {
-            console.log('Ошибка установки куки', error);
-          })
+          await setTokenInBase(el.name, decoded)
+          await setTokenInCookie(decoded)
+          location.reload()
         }
       }
     })

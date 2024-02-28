@@ -1,7 +1,7 @@
 import './App.css'
-import { Edit } from './Edit';
-import { Login } from './Login';
-import { Main } from './Mainpanel';
+import { Edit } from './Layout/Edit';
+import { Login } from './Layout/Login';
+import { Main } from './Layout/Mainpanel';
 import { FindAdmProvider } from './context/findAdmContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 

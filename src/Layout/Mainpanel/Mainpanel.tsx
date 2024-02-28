@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { findAdmContext } from '../context/findAdmContext';
+import { findAdmContext } from '../../context/findAdmContext';
 import CustomProgressbar from './ProgressbarList/Progressbar_custom';
 import { useLocation,useNavigate } from 'react-router-dom';
 import styles from './mainpanel.module.css'
