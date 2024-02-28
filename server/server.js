@@ -38,6 +38,18 @@ app.get('/admins', (req, res) => {
   });
 });
 
+app.get('/workers', (req, res) => {
+  const sql = 'SELECT * FROM worker';
+
+  connection.query(sql, (error, results) => {
+    if (error) {
+      res.status(500).json({ error: 'Ошибка при выполнении запроса к базе данных' });
+    } else {
+      res.send(results);
+    }
+  });
+});
+
 app.post('/set_adm_token', (req, res) => {
   console.log(req.body);
 
