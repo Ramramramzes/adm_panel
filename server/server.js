@@ -51,8 +51,6 @@ app.get('/workers', (req, res) => {
 });
 
 app.post('/set_adm_token', (req, res) => {
-  console.log(req.body);
-
   const sql = `UPDATE admin SET token='${req.body.token}' WHERE name='${req.body.login}'`;
 
   connection.query(sql, (error, results) => {
@@ -65,6 +63,34 @@ app.post('/set_adm_token', (req, res) => {
     }
   });
 });
+
+app.post('/setWorker', (req,res) => {
+  const sql = `INSERT INTO \`worker\` (\`name\`, \`points\`, \`comments\`) VALUES ('${req.body.name}', 0, '{}')`
+
+  connection.query(sql, (error, results) => {
+    if (error) {
+      console.error('Ошибка при выполнении запроса к базе данных:', error);
+      res.status(500).json({ error: 'Ошибка при выполнении запроса к базе данных' });
+    } else {
+      console.log(results);
+      res.status(200).json({ success: true });
+    }
+  });
+})
+
+app.post('/delWorker', (req,res) => {
+  const sql = `DELETE FROM \`worker\` WHERE \`name\` = '${req.body.name}'`
+  
+  connection.query(sql, (error, results) => {
+    if (error) {
+      console.error('Ошибка при выполнении запроса к базе данных:', error);
+      res.status(500).json({ error: 'Ошибка при выполнении запроса к базе данных' });
+    } else {
+      console.log(results);
+      res.status(200).json({ success: true });
+    }
+  });
+})
 
 app.get('/get-cookie', (req, res) => {
   const final = req.cookies;
