@@ -48,15 +48,21 @@ export function Login() {
   }
 
   //! Проблема // не использовать .map с ассинхронными функциями, они не поддерживаются
+
   const sendHandle = async () => {
     for (const el of adminsArr) {
       if (el.name == login && el.pass == pass) {
         if (el.token == "" || el.token != tokenRes) {
-          await setTokenInBase(el.name, decoded);
-          await setTokenInCookie(decoded);
-          await location.reload();
+          await reloadFlag(el,decoded)
+          break
         }
       }
+    }
+
+    async function reloadFlag(el:IAdmins,decoded:string) {
+      await setTokenInBase(el.name, decoded);
+      await setTokenInCookie(decoded);
+      location.reload();
     }
   }
 
