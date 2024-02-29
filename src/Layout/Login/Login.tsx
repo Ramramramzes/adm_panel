@@ -21,6 +21,8 @@ export function Login() {
   const [pass,setPass] = useState('')
   const [tokenRes,setTokenRes] = useState('')
 
+  const [reload,setReload] = useState(0)
+
   const adminsArr = useContext(findAdmContext);
   const decoded = btoa(token)
   
@@ -38,6 +40,11 @@ export function Login() {
     
   },[myCookie])
   
+  useEffect(() => {
+    if(reload != 0){
+      location.reload();
+    }
+  },[reload])
 
   const changeLogin = (event:React.ChangeEvent<HTMLInputElement>) => {
     setLogin(event.target.value.toString())
@@ -47,17 +54,12 @@ export function Login() {
     setPass(event.target.value.toString())
   }
 
-  //! Проблема // не могу решить никак проблему с перезагрузкой страницы только после выполнения ас.функций
-
-  const sendHandle = async () => {
+  const sendHandle = () => {
     for (const el of adminsArr) {
       if (el.name == login && el.pass == pass) {
         if (el.token == "" || el.token != tokenRes) {
-          await setTokenInBase(el.name, decoded);
-          await setTokenInCookie(decoded);
-          setTimeout(() => {
-            location.reload();
-          }, 3000);
+          setTokenInBase(el.name, decoded,setReload);
+          setTokenInCookie(decoded,setReload);
         }
       }
     }
