@@ -10,6 +10,5 @@ export default async function setTokenInCookie (decoded:string){
   })
   .catch(error => {
     console.log(error);
-    
   })
 }

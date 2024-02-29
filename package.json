@@ -17,6 +17,7 @@
     "generator-react-component": "^0.1.1",
     "generator-react-ts-component-dir": "^1.0.0",
     "jwt-decode": "^4.0.0",
+    "mysql": "^2.18.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18.2.0",

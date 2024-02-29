@@ -47,16 +47,17 @@ export function Login() {
     setPass(event.target.value.toString())
   }
 
-  const sendHandle = () => {
-    adminsArr.map(async (el:IAdmins) => {
-      if(el.name == login && el.pass == pass){
-        if(el.token == "" || el.token != tokenRes){
-          await setTokenInBase(el.name, decoded)
-          await setTokenInCookie(decoded)
-          location.reload()
+  //! Проблема // не использовать .map с ассинхронными функциями, они не поддерживаются
+  const sendHandle = async () => {
+    for (const el of adminsArr) {
+      if (el.name == login && el.pass == pass) {
+        if (el.token == "" || el.token != tokenRes) {
+          await setTokenInBase(el.name, decoded);
+          await setTokenInCookie(decoded);
+          await location.reload();
         }
       }
-    })
+    }
   }
 
   
