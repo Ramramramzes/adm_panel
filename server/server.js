@@ -65,8 +65,8 @@ app.post('/set_adm_token', (req, res) => {
 });
 
 app.post('/setWorker', (req,res) => {
-  const sql = `INSERT INTO \`worker\` (\`name\`, \`points\`, \`comments\`) VALUES ('${req.body.name}', 0, '${JSON.stringify({})}')`
-
+  const sql = `INSERT INTO \`worker\` (\`name\`, \`points\`, \`comments\`) VALUES ('${req.body.name}', 0, JSON_ARRAY())`
+  
   connection.query(sql, (error, results) => {
     if (error) {
       console.error('Ошибка при выполнении запроса к базе данных:', error);
@@ -81,6 +81,24 @@ app.post('/setWorker', (req,res) => {
 app.post('/delWorker', (req,res) => {
   const sql = `DELETE FROM \`worker\` WHERE \`name\` = '${req.body.name}'`
   
+  connection.query(sql, (error, results) => {
+    if (error) {
+      console.error('Ошибка при выполнении запроса к базе данных:', error);
+      res.status(500).json({ error: 'Ошибка при выполнении запроса к базе данных' });
+    } else {
+      console.log(results);
+      res.status(200).json({ success: true });
+    }
+  });
+})
+
+app.post('/addComment',(req,res) => {
+  let sql = `UPDATE worker SET comments = JSON_INSERT(comments, '$[${req.body.i}]', JSON_OBJECT('adm', '${req.body.adminName}', 'status', ${req.body.status}, 'comment', '${req.body.textOfComment}', 'date', '${req.body.commentDate}', 'id', '${req.body.i}'))`;
+  if (req.body.status === 1) {
+    sql += ` , points = points + 1 WHERE name = '${req.body.workerName}'`;
+  } else if (req.body.status === 0) {
+    sql += ` , points = points - 1 WHERE name = '${req.body.workerName}'`;
+  }
   connection.query(sql, (error, results) => {
     if (error) {
       console.error('Ошибка при выполнении запроса к базе данных:', error);

@@ -33,16 +33,18 @@ export function Main() {
     navigate('/workers_edit');
   }
 
-  function handleClickPerson(personData:IWorker){
-    navigate('/person', {state: personData});
+  function handleClickPerson(personData:IWorker,admName:string){
+    navigate('/person', {state: {personData,admName}});
   }
 
+
+  
   return (
     <div>
       <div className={styles.mainColor}>Добро пожаловать {location.state && location.state.name}</div>
       {workers && workers.map((el,index) => {
         return (
-          <div key={index} onClick={() => handleClickPerson(el)}>
+          <div key={index} onClick={() => handleClickPerson(el,location.state.name)}>
             <CustomProgressbar name={el.name} points={el.points}/>
           </div>
         )

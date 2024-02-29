@@ -47,22 +47,19 @@ export function Login() {
     setPass(event.target.value.toString())
   }
 
-  //! Проблема // не использовать .map с ассинхронными функциями, они не поддерживаются
+  //! Проблема // не могу решить никак проблему с перезагрузкой страницы только после выполнения ас.функций
 
   const sendHandle = async () => {
     for (const el of adminsArr) {
       if (el.name == login && el.pass == pass) {
         if (el.token == "" || el.token != tokenRes) {
-          await reloadFlag(el,decoded)
-          break
+          await setTokenInBase(el.name, decoded);
+          await setTokenInCookie(decoded);
+          setTimeout(() => {
+            location.reload();
+          }, 3000);
         }
       }
-    }
-
-    async function reloadFlag(el:IAdmins,decoded:string) {
-      await setTokenInBase(el.name, decoded);
-      await setTokenInCookie(decoded);
-      location.reload();
     }
   }
 

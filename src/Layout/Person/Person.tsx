@@ -1,8 +1,8 @@
 // import React from 'react';
 // import styles from './person.css';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-
+import { Popup } from './Popup';
 // interface IComments{
 //   adm: string,
 //   status: number,
@@ -11,26 +11,24 @@ import { useLocation } from 'react-router-dom';
 
 export function Person() {
   const location = useLocation();
-  const navigate = useNavigate()
-
-  const comments = JSON.parse(location.state.comments)
-
-  console.log(location.state);
+  // const navigate = useNavigate()
+  const dataForPopup = location.state
   
-  const commentWorkArr = Object.values<string>(comments).map((el:string) => {return JSON.parse(el)});
+
+  
+  // const commentWorkArr = Object.values<string>(comments).map((el:string) => {return JSON.parse(el)});
   //? console.log(Object.values<string>(comments).map((el:string) => {return JSON.parse(el)}));
   
 
   
   
   
-  const handleClickBack = () => {
-    navigate('/main');
-  }
+  
 
   return (
     <div>
-      <h1>Сотрудник </h1>
+      <Popup admName={dataForPopup.admName} personData={dataForPopup.personData}/>
+      {/* <h1>Сотрудник </h1>
       <button>Добавить отзыв</button>
       <div>
         {comments && commentWorkArr.map((el, index) => {
@@ -39,7 +37,7 @@ export function Person() {
           }
         })}
       </div>
-      <button onClick={handleClickBack}>На главную</button>
+      // <button onClick={handleClickBack}>На главную</button> */}
     </div>
   );
 }

@@ -1,0 +1,22 @@
+.main{
+  background-color: rgba(0, 0, 0, 0.229);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup_block{
+  width: 40%;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.btn_block{
+  display: flex;
+  justify-content: space-around;
+}
