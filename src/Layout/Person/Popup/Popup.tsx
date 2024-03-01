@@ -40,9 +40,10 @@ export function Popup({personData,admName,setAddComment}:IForPopup) {
   
   
   useEffect(() => {
-  const eventTarget = document.getElementById("close_id") as HTMLDivElement
+  const eventTarget1 = document.getElementById("close_id") as HTMLDivElement
+  const eventTarget2 = document.getElementById("close_btn") as HTMLDivElement
   function handleClick(event: MouseEvent) {
-    if(eventTarget == event.target){
+    if(eventTarget1 == event.target || eventTarget2 == event.target){
       setAddComment(false)
     }
   }
@@ -94,14 +95,19 @@ useEffect(()=>{
   }
 
   return ReactDOM.createPortal((
-    <div className={styles.main} id='close_id'>
-      <div className={styles.popup_block}>
-        <span>Оцените сотрудника: {personData && personData.name}</span>
-        <textarea onChange={handleChangeArea} cols={30} rows={10} placeholder='Ваш комментарий' value={textArea}></textarea>
-        <div className={styles.btn_block}>
-          <button onClick={handleClickUp}>+</button>
-          <button onClick={sendComment}>Отправить</button>
-          <button onClick={handleClickDown}>-</button>
+    <div className={styles.main}>
+      <div className={styles.background} id='close_id'>
+        <div className={styles.popup_block}>
+          <div className={styles.forClose}>
+            <span>Оцените сотрудника: {personData && personData.name}</span>
+            <span className={styles.close} id={'close_btn'}>✕</span>
+          </div>
+          <textarea onChange={handleChangeArea} cols={30} rows={10} placeholder='Ваш комментарий' value={textArea}></textarea>
+          <div className={styles.btn_block}>
+            <button onClick={handleClickUp}>+</button>
+            <button onClick={sendComment}>Отправить</button>
+            <button onClick={handleClickDown}>-</button>
+          </div>
         </div>
       </div>
     </div>

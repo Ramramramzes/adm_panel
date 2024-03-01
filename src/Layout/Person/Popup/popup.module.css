@@ -1,13 +1,19 @@
 .main{
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.background{
+  position: relative;
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.229);
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 0;
-  left: 0;
 }
 
 .popup_block{
@@ -23,4 +29,17 @@
 .btn_block{
   display: flex;
   justify-content: space-around;
+}
+
+.forClose{
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.close{
+  font-size: 30px;
+  margin-top: -30px;
+  margin-right: -10px;
+  cursor: pointer;
 }
