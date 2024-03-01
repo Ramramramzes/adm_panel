@@ -2,7 +2,7 @@ import styles from './popup.module.css';
 import setCommentInBase from '../../../functions/setCommentInBase';
 import { useEffect, useState } from 'react';
 import currentDate from '../../../functions/currentDate';
-import { useNavigate } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 
 interface IForPopup{
   personData:{
@@ -11,6 +11,7 @@ interface IForPopup{
     comments: string,
   }
   admName: string,
+  setAddComment: (com:boolean) => void,
 }
 
 interface IComments{
@@ -20,13 +21,13 @@ interface IComments{
 }
 
 
-export function Popup({personData,admName}:IForPopup) {
+export function Popup({personData,admName,setAddComment}:IForPopup) {
   const [indexForComments,setIndexForComments] = useState<number>(0)
   const [textArea,setTextArea] = useState('');
   const [status,setStatus] = useState(0);
+  const [likeStat,setLikeStat] = useState('')
   const commentsArr:IComments[] = JSON.parse(personData.comments)
   const date:string = currentDate()
-  const navigate = useNavigate()
   
   
   useEffect(() => {
@@ -35,6 +36,36 @@ export function Popup({personData,admName}:IForPopup) {
     }
   },[indexForComments])
   
+  
+  
+  
+  useEffect(() => {
+  const eventTarget = document.getElementById("close_id") as HTMLDivElement
+  function handleClick(event: MouseEvent) {
+    if(eventTarget == event.target){
+      setAddComment(false)
+    }
+  }
+
+  document.addEventListener('click',handleClick);
+
+  return () => {
+    document.removeEventListener('click',handleClick)
+  };
+}, []);
+
+
+useEffect(()=>{
+  //! Создать видимость кнопки отправки в зависимости от заполнения данных
+},[textArea,likeStat])
+
+  const rootModal = document.querySelector('#root_modal');
+  if(!rootModal){
+    return('Ошибка рута');
+  }
+
+
+  
 
   const handleChangeArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextArea(event.target.value);
@@ -42,13 +73,16 @@ export function Popup({personData,admName}:IForPopup) {
     
   const handleClickUp = () => {
     setStatus(1)
+    setLikeStat('+')
   }
 
   const handleClickDown = () => {
     setStatus(0)
+    setLikeStat('-')
   }
     
   const sendComment = () => {
+    setTextArea('');
     setCommentInBase({
       i:indexForComments,
       adminName:admName,
@@ -59,25 +93,19 @@ export function Popup({personData,admName}:IForPopup) {
     })
   }
 
-//! временный колбэк
-  const handleClickBack = () => {
-    navigate('/main');
-  }
-
-  return (
-    <div className={styles.main}>
+  return ReactDOM.createPortal((
+    <div className={styles.main} id='close_id'>
       <div className={styles.popup_block}>
         <span>Оцените сотрудника: {personData && personData.name}</span>
-        <textarea onChange={handleChangeArea} cols={30} rows={10} placeholder='Ваш комментарий'></textarea>
+        <textarea onChange={handleChangeArea} cols={30} rows={10} placeholder='Ваш комментарий' value={textArea}></textarea>
         <div className={styles.btn_block}>
           <button onClick={handleClickUp}>+</button>
           <button onClick={sendComment}>Отправить</button>
           <button onClick={handleClickDown}>-</button>
         </div>
       </div>
-      <button onClick={handleClickBack}>назад - временная кнопка</button>
     </div>
-  );
+  ),rootModal)
 }
 
 
