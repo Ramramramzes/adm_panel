@@ -57,7 +57,7 @@ export function Popup({personData,admName,setAddComment}:IForPopup) {
 
 
 useEffect(()=>{
-  //! Создать видимость кнопки отправки в зависимости от заполнения данных
+
 },[textArea,likeStat])
 
   const rootModal = document.querySelector('#root_modal');
@@ -84,6 +84,8 @@ useEffect(()=>{
     
   const sendComment = () => {
     setTextArea('');
+    setStatus(0)
+    setLikeStat('')
     setCommentInBase({
       i:indexForComments,
       adminName:admName,
@@ -105,7 +107,7 @@ useEffect(()=>{
           <textarea onChange={handleChangeArea} cols={30} rows={10} placeholder='Ваш комментарий' value={textArea}></textarea>
           <div className={styles.btn_block}>
             <button onClick={handleClickUp}>+</button>
-            <button onClick={sendComment}>Отправить</button>
+            {textArea == '' || likeStat == '' ? <span>Введите комментарий и оценку</span> : <button onClick={sendComment}>Отправить</button>}
             <button onClick={handleClickDown}>-</button>
           </div>
         </div>
