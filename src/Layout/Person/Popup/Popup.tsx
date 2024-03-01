@@ -3,6 +3,7 @@ import setCommentInBase from '../../../functions/setCommentInBase';
 import { useEffect, useState } from 'react';
 import currentDate from '../../../functions/currentDate';
 import ReactDOM from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface IForPopup{
   personData:{
@@ -28,7 +29,8 @@ export function Popup({personData,admName,setAddComment}:IForPopup) {
   const [likeStat,setLikeStat] = useState('')
   const commentsArr:IComments[] = JSON.parse(personData.comments)
   const date:string = currentDate()
-  
+  //! Добавить state для навигации после отправки
+  const navigate = useNavigate()
   
   useEffect(() => {
     if(commentsArr.length != 0){
@@ -94,6 +96,7 @@ useEffect(()=>{
       commentDate: date,
       workerName: personData.name,
     })
+    
   }
 
   return ReactDOM.createPortal((
