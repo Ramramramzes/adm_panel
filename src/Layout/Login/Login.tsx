@@ -30,18 +30,21 @@ export function Login() {
   
   useEffect(()=>{
     if(myCookie){
+
       setTokenRes(myCookie)
-      const foundAdmin = adminsArr.find((admin: IAdmins) => admin.token === myCookie);
       
+      const foundAdmin = adminsArr.find((admin: IAdmins) => admin.token === myCookie);
       if(foundAdmin){
         navigate('/main',{ state : {name: foundAdmin.name, token: foundAdmin.token}});
       }
     }
     
-  },[myCookie])
+    
+  },[adminsArr, myCookie, navigate])
   
   useEffect(() => {
     if(reload != 0){
+      setReload(0)
       location.reload();
     }
   },[reload])
