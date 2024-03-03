@@ -1,0 +1,33 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  padding: 3% 5%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+}
+
+.accordion{
+  width: 50%;
+  margin-bottom: 5%;
+}
+
+.acc_body{
+  display: flex;
+  justify-content: space-between;
+}
+
+.input{
+  width: 70%;
+  border: 1px solid var(--main-color);
+  border-radius: 8px;
+  padding: 2%;
+}
+
+.btn{
+  width: 25%;
+}
+
+.back_btn{
+  width: 50%;
+}

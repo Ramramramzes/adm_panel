@@ -72,7 +72,7 @@ export function Login() {
       <input onChange={changeLogin} type="text" defaultValue={login} className={styles.input}/>
       <span>Пароль</span>
       <input onChange={changePass} type="text" defaultValue={pass} className={styles.input}/>
-      <button onClick={sendHandle} className={styles.btn}>Войти</button>
+      <button onClick={sendHandle} className='btn_style'>Войти</button>
     </div>
   );
 }

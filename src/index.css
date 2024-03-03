@@ -1,3 +1,8 @@
+:root {
+  --main-color: rgb(76, 76, 253);
+  --light-back: #d7d5fc;
+}
+
 body {
   margin: 0;
 }
@@ -27,4 +32,61 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+@keyframes slideme {
+  0% {
+    left: -30px;
+    margin-left: 0px;
+  }
+  30% {
+    left: 110%;
+    margin-left: 80px;
+  }
+  100% {
+    left: 110%;
+    margin-left: 80px;
+  }
+}
+
+.btn_style {
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  background-color: rgb(76, 76, 253);
+  border-radius: 8px;
+}
+
+.btn_style:after {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 200px;
+  margin-left: 60px;
+  background: #fff;
+  opacity: 0.5;
+  position: absolute;
+  left: -40px;
+  top: -100px;
+  z-index: 1;
+  transform: rotate(45deg);
+  transition: all 0.1s;
+  animation-name: slideme;
+  animation-duration: 3s;
+  animation-delay: 0.05s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: var(--light-back) !important;
+}
+
+
+.accordion-button{
+  border-color: var(--main-color) !important;
+}
+
+.accordion{
+  --bs-accordion-btn-focus-box-shadow:  var(--main-color) !important;
 }

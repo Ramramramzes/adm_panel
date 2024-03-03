@@ -1,0 +1,10 @@
+.progressbar{
+  width: 93%;
+  /* cursor: pointer; */
+}
+
+.worker_name{
+  font-size: 30px;
+  color: var(--main-color);
+
+}

@@ -42,21 +42,21 @@ export function Main() {
   }
 
   
-  console.log(workers);
+  // console.log(workers);
   
   return (
-    <div>
-      <div className={styles.mainColor}>Добро пожаловать {location.state && location.state.name}</div>
+    <div className={styles.container}>
+      <div className={styles.welcome}>Добро пожаловать <span className={styles.admin_name}>{location.state && location.state.name}</span></div>
       {workersFiltered && workersFiltered.map((el,index) => {
         return (
-          <div key={index} onClick={() => handleClickPerson(el,location.state.name)}>
+          <div className={styles.prog_block} key={index} onClick={() => handleClickPerson(el,location.state.name)}>
             <CustomProgressbar name={el.name} points={el.points}/>
-            {index == 0 && <div> index == first</div>}
-            {index == workersFiltered.length -1 && <div> index == last</div>}
+            {index == 0 && <span className={styles.lead_los}>👑</span>}
+            {index == workersFiltered.length -1 && <span className={styles.lead_los}>💩</span>}
           </div>
         )
       })}
-      <button onClick={handleCkickRed}>Редактировать сотрудников</button>
+      <button onClick={handleCkickRed} className={styles.btn + ' btn_style'}>Редактировать сотрудников</button>
     </div>
   );
 }

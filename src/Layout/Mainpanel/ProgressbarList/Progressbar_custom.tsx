@@ -1,5 +1,5 @@
 import { ProgressBar } from 'react-bootstrap';
-
+import styles from './progressbar_my.module.css'
 
 const colors: string[] = ['success', 'danger', 'warning', 'info'];
 
@@ -7,8 +7,8 @@ const colors: string[] = ['success', 'danger', 'warning', 'info'];
 export default function CustomProgressbar({name,points}:{name: string, points: number}) {
   
   return (
-    <div>
-      <h3>{name}</h3>
+    <div className={styles.progressbar}>
+      <span className={styles.worker_name}>{name}</span>
       <ProgressBar variant={colors[(Math.floor(Math.random() * 3))]} animated now={points} />
     </div>
     

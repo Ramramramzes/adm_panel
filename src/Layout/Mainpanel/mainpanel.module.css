@@ -1,0 +1,42 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  padding: 3% 5%;
+}
+
+.welcome{
+  font-size: 20px;
+  margin-bottom: 3%;
+  margin-left: 2%;
+}
+
+.admin_name{
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.prog_block{
+  display: flex;
+  justify-content: space-between;
+  padding: 1% 2% 2% 2%;
+  transition: linear 50ms;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.prog_block:hover{
+  background-color: var(--light-back);
+  transition: linear 150ms;
+}
+
+
+.lead_los{
+  font-size: 50px;
+}
+
+.btn{
+  margin-left: 2%;
+  margin-top: 2%;
+  width: 30%;
+}
