@@ -53,7 +53,7 @@ export function Edit() {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
-      <button onClick={handleClickBack} className={styles.back_btn + ' btn_style'}>На главную</button>
+      <button onClick={handleClickBack} className={styles.back_btn + ' btn_style'}>Назад</button>
     </div>
   );
 }

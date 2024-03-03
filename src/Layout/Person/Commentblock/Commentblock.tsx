@@ -16,9 +16,9 @@ export function Commentblock({ elData }: { elData: IEldata }) {
 
   useEffect(() => {
     if(status == 0){
-      setColorBack('rgba(255, 127, 127, 0.616) ')
+      setColorBack('rgba(255, 127, 127, 0.375)')
     }else if(status == 1){
-      setColorBack('rgba(129, 255, 127, 0.616)')
+      setColorBack('rgba(140, 255, 127, 0.375)')
     }
   },[status])
 
@@ -28,8 +28,8 @@ export function Commentblock({ elData }: { elData: IEldata }) {
 
   return (
     <div style={{backgroundColor: `${colorBack}`}} className={styles.comment_block}>
-      <div>{id} <div>{adm}{date}</div></div>
-      <div>{comment}</div>
+      <div className={styles.adm_info}><span className={styles.id}>{id}</span><span className={styles.name}>Комментарий от: {adm}</span><span className={styles.date}>{date}</span></div>
+      <div><span className={styles.comment}>{comment}</span></div>
     </div>
   );
 }

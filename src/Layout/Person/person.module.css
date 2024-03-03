@@ -1,0 +1,42 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  padding: 3% 5%;
+}
+
+.list{
+  margin: 0;
+  margin-bottom: 0px;
+  padding: 0px;
+}
+
+.points_btns{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2%;
+
+}
+
+.btn_block{
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+  height: inherit;
+}
+
+.worker_title,
+.ball_title{
+  font-size: 30px;
+}
+
+.worker_name,
+.ball_name{
+  color: var(--main-color);
+  font-size: 34px;
+  font-weight: bold;
+}
+
+.item{
+  margin-bottom: 1%;
+}
+

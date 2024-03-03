@@ -1,0 +1,16 @@
+.comment_block{
+  padding: 2% 3%;
+  border-radius: 8px;
+}
+
+.adm_info{
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2%;
+}
+
+.comment{
+  font-size: 24px;
+}
+

@@ -1,5 +1,5 @@
 // import React from 'react';
-// import styles from './person.css';
+import styles from './person.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { Popup } from './Popup';
@@ -31,17 +31,22 @@ export function Person() {
   }
   
   return (
-    <div>
-      <h1>Сотрудник {dataForPopup.personData.name}</h1>
-      <h3>Колличество баллов {dataForPopup.personData.points}</h3>
-      <div>{addComment && <Popup admName={dataForPopup.admName} personData={dataForPopup.personData} setAddComment={setAddComment}/>}</div>
-      <ul>
+    <div className={styles.container}>
+      <div className={styles.worker_title}>Сотрудник: <span className={styles.worker_name}>{dataForPopup.personData.name}</span></div>
+      <div className={styles.points_btns}>
+        <div className={styles.ball_title}>Колличество баллов: <span className={styles.ball_name}>{dataForPopup.personData.points}</span></div>
+        <div className={styles.btn_block}>
+          <button onClick={handleClickComment} className={styles.btn + ' btn_style'}>Оставить комментарий</button>
+          <button onClick={handleClickBack} className={styles.btn + ' btn_style'}>Назад</button>
+        </div>
+      </div>
+      <ul className={styles.list}>
         {commentsArr && commentsArr.map((el:IEldata) => {
-          return <li><Commentblock elData={el}/></li>
+          return <li className={styles.item}><Commentblock elData={el}/></li>
         })}
       </ul>
-      <button onClick={handleClickComment}>Оставить комментарий</button>
-      <button onClick={handleClickBack}>Назад</button>
+      {/* Попап -----> */}
+      <div>{addComment && <Popup admName={dataForPopup.admName} personData={dataForPopup.personData} setAddComment={setAddComment}/>}</div>
     </div>
   );
 }
