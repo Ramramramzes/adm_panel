@@ -18,6 +18,10 @@ export function Main() {
   const baseAdm = useContext(findAdmContext)
   const workers:IWorker[] = useWorkers();
 
+  const workersFiltered = workers.sort(function(a, b) {
+    return b.points - a.points;
+  });
+  
   useEffect(() => {
     if (!location.state) {
       navigate('/');
@@ -38,14 +42,17 @@ export function Main() {
   }
 
   
+  console.log(workers);
   
   return (
     <div>
       <div className={styles.mainColor}>Добро пожаловать {location.state && location.state.name}</div>
-      {workers && workers.map((el,index) => {
+      {workersFiltered && workersFiltered.map((el,index) => {
         return (
           <div key={index} onClick={() => handleClickPerson(el,location.state.name)}>
             <CustomProgressbar name={el.name} points={el.points}/>
+            {index == 0 && <div> index == first</div>}
+            {index == workersFiltered.length -1 && <div> index == last</div>}
           </div>
         )
       })}

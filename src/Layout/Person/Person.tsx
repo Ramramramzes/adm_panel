@@ -33,6 +33,7 @@ export function Person() {
   return (
     <div>
       <h1>Сотрудник {dataForPopup.personData.name}</h1>
+      <h3>Колличество баллов {dataForPopup.personData.points}</h3>
       <div>{addComment && <Popup admName={dataForPopup.admName} personData={dataForPopup.personData} setAddComment={setAddComment}/>}</div>
       <ul>
         {commentsArr && commentsArr.map((el:IEldata) => {
