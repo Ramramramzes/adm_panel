@@ -29,7 +29,7 @@ export function Popup({personData,admName,setAddComment}:IForPopup) {
   const [likeStat,setLikeStat] = useState('')
   const commentsArr:IComments[] = JSON.parse(personData.comments)
   const date:string = currentDate()
-  //! Добавить state для навигации после отправки
+  const [commentState,setCommentState] = useState(false)
   const navigate = useNavigate()
   
   useEffect(() => {
@@ -38,42 +38,38 @@ export function Popup({personData,admName,setAddComment}:IForPopup) {
     }
   },[indexForComments])
   
-  
-  
-  
   useEffect(() => {
-  const eventTarget1 = document.getElementById("close_id") as HTMLDivElement
-  const eventTarget2 = document.getElementById("close_btn") as HTMLDivElement
-  function handleClick(event: MouseEvent) {
-    if(eventTarget1 == event.target || eventTarget2 == event.target){
-      setAddComment(false)
+    const eventTarget1 = document.getElementById("close_id") as HTMLDivElement
+    const eventTarget2 = document.getElementById("close_btn") as HTMLDivElement
+    function handleClick(event: MouseEvent) {
+      if(eventTarget1 == event.target || eventTarget2 == event.target){
+        setAddComment(false)
+      }
     }
-  }
 
-  document.addEventListener('click',handleClick);
+    document.addEventListener('click',handleClick);
 
-  return () => {
-    document.removeEventListener('click',handleClick)
-  };
-}, []);
+    return () => {
+      document.removeEventListener('click',handleClick)
+    };
+  }, []);
 
-
-useEffect(()=>{
-
-},[textArea,likeStat])
+  useEffect(()=> {
+    if(commentState == true){
+      setCommentState(false)
+      navigate('/Main')
+    }
+  },[commentState])
 
   const rootModal = document.querySelector('#root_modal');
   if(!rootModal){
     return('Ошибка рута');
   }
 
-
-  
-
   const handleChangeArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextArea(event.target.value);
   }
-    
+
   const handleClickUp = () => {
     setStatus(1)
     setLikeStat('+')
@@ -83,7 +79,7 @@ useEffect(()=>{
     setStatus(0)
     setLikeStat('-')
   }
-    
+
   const sendComment = () => {
     setTextArea('');
     setStatus(0)
@@ -95,8 +91,9 @@ useEffect(()=>{
       textOfComment: textArea,
       commentDate: date,
       workerName: personData.name,
+      setCommentState: setCommentState,
     })
-    
+
   }
 
   return ReactDOM.createPortal((

@@ -37,7 +37,6 @@ export function Main() {
     navigate('/person', {state: {personData,admName}});
   }
 
-  console.log(workers);
   
   
   return (
