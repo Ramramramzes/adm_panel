@@ -10,7 +10,7 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.229);
+  background-color: rgba(0, 0, 0, 0.311);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,6 +29,7 @@
 .btn_block{
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .forClose{
@@ -39,7 +40,40 @@
 
 .close{
   font-size: 30px;
-  margin-top: -30px;
-  margin-right: -10px;
+  margin-top: -20px;
+
   cursor: pointer;
+  color: var(--main-color);
+}
+
+.worker_name_block{
+  font-size: 20px;
+}
+
+.worker_name{
+  font-size: 24px;
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+.textarea{
+  padding: 2% 3%;
+  border-radius: 8px;
+  border-color: var(--main-color);
+  margin-bottom: 5%;
+}
+
+.up,
+.down{
+  border-radius: 100%;
+  height: 70px;
+  width: 70px;
+  padding: 0px;
+  font-size: 30px;
+  background-color: #fff;
+  border: 1px solid rgb(230, 230, 230);
+}
+
+.hover_active{
+  background-color: var(--light-back);
 }

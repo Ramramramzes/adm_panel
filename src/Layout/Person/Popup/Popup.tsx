@@ -101,14 +101,13 @@ export function Popup({personData,admName,setAddComment}:IForPopup) {
       <div className={styles.background} id='close_id'>
         <div className={styles.popup_block}>
           <div className={styles.forClose}>
-            <span>Оцените сотрудника: {personData && personData.name}</span>
+            <span className={styles.worker_name_block}>Оцените сотрудника: <span className={styles.worker_name}>{personData && personData.name}</span></span>
             <span className={styles.close} id={'close_btn'}>✕</span>
           </div>
-          <textarea onChange={handleChangeArea} cols={30} rows={10} placeholder='Ваш комментарий' value={textArea}></textarea>
+          <textarea onChange={handleChangeArea} cols={30} rows={10} placeholder='Ваш комментарий' value={textArea} className={styles.textarea}></textarea>
           <div className={styles.btn_block}>
-            <button onClick={handleClickUp}>+</button>
-            {textArea == '' || likeStat == '' ? <span>Введите комментарий и оценку</span> : <button onClick={sendComment}>Отправить</button>}
-            <button onClick={handleClickDown}>-</button>
+            <button onClick={handleClickUp} className={styles.up} style={{backgroundColor: likeStat === '+' ? 'var(--light-back)' : '#fff'}}>👍</button>            {textArea == '' || likeStat == '' ? <span>Введите комментарий и оценку</span> : <button className='btn_style' onClick={sendComment}>Отправить</button>}
+            <button onClick={handleClickDown} className={styles.down} style={{backgroundColor: likeStat === '-' ? 'var(--light-back)' : '#fff'}}>👎</button>
           </div>
         </div>
       </div>
