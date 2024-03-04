@@ -11,7 +11,6 @@ interface IEldata {
 
 export function Commentblock({ elData }: { elData: IEldata }) {
   const { id, adm, date, status, comment } = elData;
-  console.log(id, adm, date, status, comment);
   const [colorBack,setColorBack] = useState('')
 
   useEffect(() => {

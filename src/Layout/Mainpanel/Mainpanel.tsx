@@ -40,9 +40,6 @@ export function Main() {
   function handleClickPerson(personData:IWorker,admName:string){
     navigate('/person', {state: {personData,admName}});
   }
-
-  
-  // console.log(workers);
   
   return (
     <div className={styles.container}>
