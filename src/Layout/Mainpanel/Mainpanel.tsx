@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { findAdmContext } from '../../context/findAdmContext';
 import CustomProgressbar from './ProgressbarList/Progressbar_custom';
 import { useLocation,useNavigate } from 'react-router-dom';
@@ -17,33 +17,42 @@ export function Main() {
   const navigate = useNavigate()
   const baseAdm = useContext(findAdmContext)
   const workers:IWorker[] = useWorkers();
+  const [guest,setGuest] = useState(false);
 
   const workersFiltered = workers.sort(function(a, b) {
     return b.points - a.points;
   });
   
+  const handleCkickLogin = () => {
+    navigate('/');
+  }
+  
   useEffect(() => {
+    if(!guest){
+
+      return
+    }
     if (!location.state) {
-      navigate('/');
+      navigate('/')
     } else {
       const isValidAdmin = baseAdm.find(el => el.token === location.state.token && el.name === location.state.name)
       if(!isValidAdmin){
-        navigate('/');
+        setGuest(true)
       }
     }
-  }, [navigate, baseAdm, location.state]);
+  }, [navigate, baseAdm, location.state, guest]);
 
   const handleCkickRed = () => {
-    navigate('/workers_edit');
+    navigate('/workers_edit',{state:{name:location.state.name}});
   }
 
   function handleClickPerson(personData:IWorker,admName:string){
-    navigate('/person', {state: {personData,admName}});
+    navigate('/person', {state: {personData,admName,name:location.state.name}});
   }
   
   return (
     <div className={styles.container}>
-      <div className={styles.welcome}>Добро пожаловать <span className={styles.admin_name}>{location.state && location.state.name}</span></div>
+      <div className={styles.welcome}>Добро пожаловать <span className={styles.admin_name}>{!guest && location.state ? location.state.name : 'Гость'}</span></div>
       {workersFiltered && workersFiltered.map((el,index) => {
         return (
           <div className={styles.prog_block} key={index} onClick={() => handleClickPerson(el,location.state.name)}>
@@ -53,7 +62,7 @@ export function Main() {
           </div>
         )
       })}
-      <button onClick={handleCkickRed} className={styles.btn + ' btn_style'}>Редактировать сотрудников</button>
+      {!guest && location.state ? <button onClick={handleCkickRed} className={styles.btn + ' btn_style'}>Редактировать сотрудников</button> : <button onClick={handleCkickLogin} className={styles.btn + ' btn_style'}>Войти</button>}
     </div>
   );
 }

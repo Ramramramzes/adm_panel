@@ -40,3 +40,42 @@
   margin-bottom: 1%;
 }
 
+@media (max-width: 500px) {
+  .container{
+    padding: 5% 5%;
+  }
+  
+  .points_btns{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 2%;
+  }
+
+  
+  
+  .btn_block{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: inherit;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  
+  .worker_title,
+  .ball_title{
+    font-size: 20px;
+  }
+  
+  .worker_name,
+  .ball_name{
+    color: var(--main-color);
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .item{
+    margin-bottom: 1%;
+  }
+}

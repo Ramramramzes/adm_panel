@@ -1,5 +1,5 @@
 import styles from './edit.module.css'
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Accordion from 'react-bootstrap/Accordion';
 import { useState, useEffect } from "react";
 import delWorker from "../../functions/delWorker";
@@ -14,13 +14,14 @@ export function Edit() {
   const [setInpt,setSetInpt] = useState('')
   const baseAdm = useContext(findAdmContext)
   const myCookie = useGetCookie()
+  const isValidAdmin = baseAdm.find(el => el.token === myCookie)
+  const location = useLocation()
 
   useEffect(() => {
-      const isValidAdmin = baseAdm.find(el => el.token === myCookie)
       if(!isValidAdmin){
         navigate('/');
       }
-  }, []);
+  }, [baseAdm, myCookie, navigate]);
 
   const handleSetChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     setSetInpt('')
@@ -33,7 +34,7 @@ export function Edit() {
   }
 
   const handleClickBack = () => {
-    navigate('/main');
+    navigate('/main',{state:{name:location.state.name}});
   }
   return (
     <div className={styles.container}>

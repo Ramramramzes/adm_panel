@@ -57,7 +57,7 @@ export function Popup({personData,admName,setAddComment}:IForPopup) {
   useEffect(()=> {
     if(commentState == true){
       setCommentState(false)
-      navigate('/Main')
+      navigate('/Main',{state:{name:admName}})
     }
   },[commentState])
 
@@ -106,7 +106,8 @@ export function Popup({personData,admName,setAddComment}:IForPopup) {
           </div>
           <textarea onChange={handleChangeArea} cols={30} rows={10} placeholder='Ваш комментарий' value={textArea} className={styles.textarea}></textarea>
           <div className={styles.btn_block}>
-            <button onClick={handleClickUp} className={styles.up} style={{backgroundColor: likeStat === '+' ? 'var(--light-back)' : '#fff'}}>👍</button>            {textArea == '' || likeStat == '' ? <span>Введите комментарий и оценку</span> : <button className='btn_style' onClick={sendComment}>Отправить</button>}
+            <button onClick={handleClickUp} className={styles.up} style={{backgroundColor: likeStat === '+' ? 'var(--light-back)' : '#fff'}}>👍</button>
+            {textArea == '' || likeStat == '' ? <span className={styles.needed_text}>Введите комментарий и оценку</span> : <button className='btn_style' onClick={sendComment}>Отправить</button>}
             <button onClick={handleClickDown} className={styles.down} style={{backgroundColor: likeStat === '-' ? 'var(--light-back)' : '#fff'}}>👎</button>
           </div>
         </div>

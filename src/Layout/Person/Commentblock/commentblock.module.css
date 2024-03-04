@@ -14,3 +14,12 @@
   font-size: 24px;
 }
 
+@media (max-width: 500px) {
+  .adm_info{
+    font-size: 14px;
+  }
+
+  .comment{
+    font-size: 20px;
+  }
+}

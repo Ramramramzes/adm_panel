@@ -31,3 +31,22 @@
 .back_btn{
   width: 50%;
 }
+
+@media (max-width: 500px) {
+  .accordion{
+    width: 100%;
+    margin-bottom: 10%;
+  }
+  
+  .input{
+    width: 55%;
+  }
+
+  .btn{
+    width: 40%;
+  }
+  
+  .back_btn{
+    width: 100%;
+  }
+}

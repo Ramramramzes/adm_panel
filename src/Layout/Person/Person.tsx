@@ -39,7 +39,7 @@ export function Person() {
   }
 
   const handleClickBack = () => {
-    navigate('/main');
+    navigate('/main',{state:{name:location.state.name}});
   }
   
   return (

@@ -40,3 +40,24 @@
   margin-top: 2%;
   width: 30%;
 }
+
+@media (max-width: 500px) {
+  .prog_block{
+    display: flex;
+    justify-content: space-between;
+    padding: 1% 1%;
+    margin-bottom: 5%;
+  }
+  .welcome{
+    text-align: center;
+  }
+  .lead_los{
+    font-size: 40px;
+  }
+
+  .btn{
+    margin-left: 0%;
+    margin-top: 10%;
+    width: 100%;
+  }
+}

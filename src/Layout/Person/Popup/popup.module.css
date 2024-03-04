@@ -77,3 +77,47 @@
 .hover_active{
   background-color: var(--light-back);
 }
+
+@media (max-width: 500px) {
+  .popup_block{
+    width: 90%;
+    height: 40vh;
+  }
+
+
+  .close{
+    font-size: 30px;
+    margin-top: -5px;
+    margin-right: 5px;
+  }
+
+  .worker_name_block{
+    font-size: 16px;
+  }
+
+  .worker_name{
+    font-size: 20px;
+  }
+
+  .textarea{
+    padding: 5% 5%;
+    margin-bottom: 5%;
+  }
+
+  .up,
+  .down{
+    border-radius: 100%;
+    height: 50px;
+    width: 50px;
+    font-size: 20px;
+    border: 1px solid rgb(230, 230, 230);
+  }
+
+  .hover_active{
+    background-color: var(--light-back);
+  }
+
+  .needed_text{
+    text-align: center;
+  }
+}
