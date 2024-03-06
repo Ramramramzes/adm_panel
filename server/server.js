@@ -4,6 +4,9 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
 var app = express()
+app.use(express.json());
+app.use(express.static('dist'));
+
 const host = 'localhost';
 const port = 3001;
 const connection = createConnection({
@@ -13,11 +16,12 @@ const connection = createConnection({
   database: 'admin_panel'
 });
 
+
 connection.connect();
 app.use(cookieParser('secret key'));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
-  const allowedOrigin = req.headers.origin || "http://localhost:5173"; // Используйте Origin из запроса, если он есть
+  const allowedOrigin = req.headers.origin || "http://localhost:5173";
   res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
