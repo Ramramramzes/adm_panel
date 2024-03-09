@@ -29,7 +29,6 @@ export function Main() {
   
   useEffect(() => {
     if(!guest){
-
       return
     }
     if (!location.state) {

@@ -7,7 +7,7 @@ export function useWorkers() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/workers');
+        const response = await axios.get('/api/workers');
         setWorkersArr(response.data);
       } catch (error) {
         console.error('Ошибка при выполнении запроса:', error);

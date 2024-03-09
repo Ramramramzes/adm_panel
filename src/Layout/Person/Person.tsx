@@ -55,8 +55,8 @@ export function Person() {
             </div>
           </div>
           <ul className={styles.list}>
-            {commentsArr && commentsArr.map((el:IEldata) => {
-              return <li className={styles.item}><Commentblock elData={el}/></li>
+            {commentsArr && commentsArr.map((el:IEldata,index:number) => {
+              return <li key={index} className={styles.item}><Commentblock elData={el}/></li>
             })}
           </ul>
           {/* Попап -----> */}
