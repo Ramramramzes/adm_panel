@@ -6,15 +6,14 @@
 ---
 ## Начало работы
  1. `npm intall` для установки всех пакетов
- 2. Далее в файле `server/db.js` меняем данные для подключения к базе
+ 2. Далее в файле `server/db.js` меняем данные для подключения к базе (я использовал [MAMP](https://www.mamp.info/en/mamp/mac/) для macOs)
 ```
   host: 'localhost',
   user: 'root',
   password: 'root',
   database: 'admin_panel'
 ```
-(я использовал [MAMP](https://www.mamp.info/en/mamp/mac/) для macOs)
- 3.<span style="color: red;">?</span> Возможно потребуется поменять порты в `server/server.js`
+ 3. <span style="color: red;">?</span> Возможно потребуется поменять порты в `server/server.js`
  4. Так же нам потребуется бд со списком админов (в моем случае он статичный) / и таблицей для добавления сотрудников
 
 ![бд](./img/db.png)
