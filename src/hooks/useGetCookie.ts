@@ -7,7 +7,7 @@ export default function useGetCookie(){
   const [cookie,setCookie] = useState('')
 
   useEffect(()=>{
-    axios.get('/api/get-cookie', {
+    axios.get('/get-cookie', {
       withCredentials: true // Включаем отправку куков
     })
     .then(response => {

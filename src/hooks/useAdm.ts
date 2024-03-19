@@ -7,7 +7,7 @@ export function useAdm() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/admins');
+        const response = await axios.get('/admins');
         setAdminsArr(response.data);
       } catch (error) {
         console.error('Ошибка при выполнении запроса:', error);

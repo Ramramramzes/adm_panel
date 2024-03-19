@@ -13,7 +13,7 @@ interface IQuerry{
 
 
 async function setCommentInBase({i,adminName,status,textOfComment,commentDate,workerName,setCommentState}:IQuerry) {
-  axios.post('/api/addComment',{i,adminName,status,textOfComment,commentDate,workerName})
+  axios.post('/addComment',{i,adminName,status,textOfComment,commentDate,workerName})
   .then(response => {
     console.log('Данные успешно отправлены:', response);
     setCommentState(true)

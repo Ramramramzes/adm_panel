@@ -2,7 +2,7 @@ import axios from "axios";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default async function setTokenInCookie (decoded:string,setReload:(el:number)=>void){
-  axios.get(`/api/set-cookie?token=${decoded}`, {
+  axios.get(`/set-cookie?token=${decoded}`, {
     withCredentials: true,
   })
   .then(response => {

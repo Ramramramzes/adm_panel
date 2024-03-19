@@ -13,7 +13,7 @@ const port = 3001;
 app.use(cookieParser('secret key'));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
-  const allowedOrigin = req.headers.origin || "http://localhost:5175";
+  const allowedOrigin = req.headers.origin || "http://localhost:5173";
   res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
