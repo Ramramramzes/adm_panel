@@ -1,5 +1,5 @@
 import express  from 'express';
-import connection from './db'
+import connection from './db.js'
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
